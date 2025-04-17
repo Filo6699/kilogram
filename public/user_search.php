@@ -7,6 +7,8 @@ include 'navbar.php';
 $search = $_GET['search'] ?? '';
 $users = [];
 
+$is_cursed = is_cursed(user_id: $_SESSION['user_id']);
+
 if ($search === '') {
     $stmt = $pdo->query("SELECT id, username FROM users ORDER BY id ASC");
     $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -25,5 +27,10 @@ if ($search === '') {
         <?php foreach ($users as $user): ?>
             <li><?= maybe_reverse(htmlspecialchars($user['username'])) ?> (ID: <?= $user['id'] ?>)</li>
         <?php endforeach; ?>
+        <?php if ($is_cursed): ?>
+            <div>
+                <?php include 'captcha_image.php'; ?>
+            </div>
+        <?php endif; ?>
     </ul>
 <?php endif; ?>

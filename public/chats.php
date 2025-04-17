@@ -23,12 +23,15 @@ $stmt = $pdo->prepare("
 $stmt->execute([$user_id, $user_id, $user_id]);
 $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+$is_cursed = is_cursed($user_id);
+
 ?>
 <h2><?= maybe_reverse(t('your_chats')) ?></h2>
 <ul>
     <?php foreach ($users as $user): ?>
         <li>
             <a href="chat.php?with=<?= $user['id'] ?>">
+                <?php if ($is_cursed) include 'captcha_image.php'; ?>
                 <?= maybe_reverse(htmlspecialchars($user['username'])) ?>
             </a>
         </li>

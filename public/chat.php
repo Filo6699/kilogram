@@ -3,9 +3,9 @@ require_once __DIR__ . '/../src/lang_helper.php';
 require_once __DIR__ . '/../src/db.php';
 include 'navbar.php';
 
-function is_whitelisted($username) {
+function is_whitelisted($user_id) {
     $whitelist = json_decode(file_get_contents(__DIR__ . '/../data/whitelist.json'), true);
-    return in_array($username, $whitelist, true);
+    return in_array($user_id, $whitelist, true);
 }
 
 $user_id = $_SESSION['user_id'] ?? null;
@@ -18,7 +18,8 @@ $user_row = $stmt->fetch(PDO::FETCH_ASSOC);
 $current_username = $user_row['username'];
 $messages_per_day = (int)($user_row['messages_per_day'] ?? 25);
 
-$is_whitelisted = is_whitelisted($current_username);
+$is_whitelisted = is_whitelisted($user_id);
+$is_cursed = is_cursed($user_id);
 
 $with_id = $_GET['with'] ?? '';
 $stmt = $pdo->prepare("SELECT id, username FROM users WHERE id = ?");
@@ -116,6 +117,7 @@ if (isset($_GET['captcha_failed'])) {
         word-break: break-word;
     ">
         <?php foreach ($messages as $msg): ?>
+          <?php if ($is_cursed) include 'captcha_image.php'; ?>
             <div style="margin-bottom:8px;<?= $msg['sender_id'] == $user_id ? 'text-align:right;' : '' ?>">
                 <span style="font-weight:bold;"><?= htmlspecialchars($msg['sender_name']) ?>:</span>
                 <span><?= htmlspecialchars($msg['content']) ?></span>

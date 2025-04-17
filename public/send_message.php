@@ -5,9 +5,9 @@ require_once __DIR__ . '/../src/db.php';
 
 include 'navbar.php';
 
-function is_whitelisted($username) {
+function is_whitelisted($user_id) {
     $whitelist = json_decode(file_get_contents(__DIR__ . '/../data/whitelist.json'), true);
-    return in_array($username, $whitelist, true);
+    return in_array($user_id, $whitelist, true);
 }
 
 $user_id = $_SESSION['user_id'] ?? null;
@@ -17,10 +17,9 @@ if (!$user_id) die(t('not_logged_in'));
 $stmt = $pdo->prepare("SELECT username, messages_per_day FROM users WHERE id = ?");
 $stmt->execute([$user_id]);
 $user_row = $stmt->fetch(PDO::FETCH_ASSOC);
-$current_username = $user_row['username'];
 $messages_per_day = (int)($user_row['messages_per_day'] ?? 25);
 
-$is_whitelisted = is_whitelisted($current_username);
+$is_whitelisted = is_whitelisted($user_id);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$is_whitelisted) {
     if (

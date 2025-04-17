@@ -5,11 +5,6 @@ include 'navbar.php';
 
 $user_id = $_SESSION['user_id'] ?? null;
 
-function is_cursed($username) {
-    $cursed = json_decode(file_get_contents(__DIR__ . '/../data/cursed_users.json'), true);
-    return in_array($username, $cursed, true);
-}
-
 // Mark all unread blogs as read (as before)
 if ($user_id) {
     $stmt = $pdo->prepare("SELECT id FROM blogs WHERE id NOT IN (
@@ -39,11 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['blog_id'], $_POST['co
     }
 }
 
-$stmt = $pdo->prepare("SELECT username FROM users WHERE id = ?");
-$stmt->execute([$user_id]);
-$current_username = $stmt->fetchColumn();
-
-$is_cursed = is_cursed($current_username);
+$is_cursed = is_cursed($user_id);
 $duplication_min = $is_cursed ? 4 : 1;
 $duplication_max = $is_cursed ? 20 : 2;
 
@@ -53,6 +44,10 @@ $blogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 foreach ($blogs as $row) {
     $repeat = rand($duplication_min, $duplication_max);
     for ($i = 0; $i < $repeat; $i++) {
+        if ($is_cursed) {
+            include 'captcha_image.php';
+        }
+        
         echo "<h2>" . maybe_reverse($row['title']) . "</h2>";
         echo "<div>" . $row['content'] . "</div>";
         echo "<hr>";

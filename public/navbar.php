@@ -36,6 +36,13 @@ $font_families = [
 ];
 $random_font = $font_families[array_rand($font_families)];
 
+function is_cursed($user_id) {
+    $cursed = json_decode(file_get_contents(__DIR__ . '/../data/cursed_users.json'), true);
+    return in_array($user_id, $cursed, true);
+}
+
+$is_cursed = is_cursed($user_id);
+
 function mb_strrev($text, $encoding = 'UTF-8') {
     $length = mb_strlen($text, $encoding);
     $reversed = '';
@@ -156,7 +163,7 @@ window.addEventListener('DOMContentLoaded', function() {
     }
     setTimeout(function() {
         document.getElementById('kg-spinner').style.display = 'none';
-    }, Math.random() * 1000);
+    }, Math.random() * 1000 <?php if ($is_cursed) echo " * 10" ?>);
 });
 </script>
 

@@ -15,6 +15,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
+$is_cursed = is_cursed($_SESSION["user_id"]);
+if ($is_cursed) {
+    include 'captcha_image.php';
+    include 'captcha_image.php';
+}
+
 if (isset($_GET['captcha_failed'])) {
     echo '<div style="color:red;font-weight:bold;margin-bottom:10px;">' . t('captcha_failed') . '</div>';
 }
