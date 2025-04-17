@@ -6,7 +6,7 @@ if (!isset($_SESSION['lang'])) {
     $_SESSION['lang'] = 'ru';
 }
 
-if (rand(1, 5) === 1) {
+if (rand(1, 15) === 1) {
     $_SESSION['lang'] = 'kk';
 }
 
