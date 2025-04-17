@@ -63,6 +63,36 @@ $links = [
 ];
 shuffle($links);
 
+?>
+<button type="button">gol back</button>
+<button type="button">go forward</button>
+<button type="button">reload</button>
+
+<div id="kg-spinner" style="
+    position:fixed;top:0;left:0;width:100vw;height:100vh;
+    background:rgba(255,255,255,0.8);z-index:9999;
+    display:flex;align-items:center;justify-content:center;
+    font-size:2em;
+">
+    <div>
+        <svg width="60" height="60" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="40" stroke="#888" stroke-width="8" fill="none" stroke-dasharray="188.4" stroke-dashoffset="0">
+                <animateTransform attributeName="transform" type="rotate" from="0 50 50" to="360 50 50" dur="1s" repeatCount="indefinite"/>
+            </circle>
+        </svg>
+        <div>Loading...</div>
+    </div>
+</div>
+<script>
+window.addEventListener('DOMContentLoaded', function() {
+    setTimeout(function() {
+        document.getElementById('kg-spinner').style.display = 'none';
+    }, 1200);
+});
+</script>
+
+<?php
+
 echo '<nav style="background:#eee;padding:10px;">' . implode(' | ', $links);
 if ($user_id) {
     echo ' | <span>' . maybe_reverse("Logged in as #$user_id") . '</span>';
