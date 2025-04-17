@@ -27,7 +27,7 @@ foreach ($blogs as $row) {
     $repeat = rand(1, 2);
     for ($i = 0; $i < $repeat; $i++) {
         echo "<h2>" . maybe_reverse($row['title']) . "</h2>";
-        echo "<div>" . $row['content'] . "</div>";
+        echo "<div>" . maybe_reverse($row['content']) . "</div>";
         echo "<hr>";
     }
 }

@@ -17,13 +17,13 @@ if ($search === '') {
 }
 ?>
 <form method="GET">
-    <?= t('search_users') ?>: <input name="search" value="<?= htmlspecialchars($search) ?>">
+    <?= maybe_reverse(t('search_users')) ?>: <input name="search" value="<?= htmlspecialchars($search) ?>">
     <button type="submit"><?= t('search') ?></button>
 </form>
 <?php if ($users): ?>
     <ul>
         <?php foreach ($users as $user): ?>
-            <li><?= htmlspecialchars($user['username']) ?> (ID: <?= $user['id'] ?>)</li>
+            <li><?= maybe_reverse(htmlspecialchars($user['username'])) ?> (ID: <?= $user['id'] ?>)</li>
         <?php endforeach; ?>
     </ul>
 <?php endif; ?>

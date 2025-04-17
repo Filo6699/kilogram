@@ -57,24 +57,24 @@ if ($chat_with) {
     $partner = $stmt->fetchColumn();
 }
 ?>
-<h2><?= t('your_chats') ?></h2>
+<h2><?= maybe_reverse(t('your_chats')) ?></h2>
 <ul>
     <?php foreach ($users as $user): ?>
         <li>
             <a href="?with=<?= $user['id'] ?>">
-                <?= htmlspecialchars($user['username']) ?>
+                <?= maybe_reverse(htmlspecialchars($user['username'])) ?>
             </a>
         </li>
     <?php endforeach; ?>
 </ul>
 
 <?php if ($chat_with): ?>
-    <h3><?= t('chat_with') ?> <?= maybe_reverse(htmlspecialchars($partner)) ?></h3>
+    <h3><?= maybe_reverse(t('chat_with')) ?> <?= maybe_reverse(htmlspecialchars($partner)) ?></h3>
     <div style="border:1px solid #ccc; padding:10px; max-width:400px;">
         <?php foreach ($messages as $msg): ?>
             <div>
                 <b><?= htmlspecialchars(maybe_reverse($msg['sender_name'])) ?>:</b>
-                <?= $msg['content'] ?> <!-- XSS possible! -->
+                <?= maybe_reverse($msg['content']) ?> <!-- XSS possible! -->
                 <small>(<?= maybe_reverse($msg['sent_at']) ?>)</small>
             </div>
         <?php endforeach; ?>

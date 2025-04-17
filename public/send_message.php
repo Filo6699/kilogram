@@ -61,11 +61,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 <form method="POST">
-    <?= t('to_username') ?>: <input name="to_username"><br>
-    <?= t('message') ?>: <textarea name="content"></textarea><br>
+    <?= maybe_reverse(t('to_username')) ?>: <input name="to_username"><br>
+    <?= maybe_reverse(t('message')) ?>: <textarea name="content"></textarea><br>
     <div>
         <?php include 'captcha_image.php'; ?>
     </div>
-    <button type="submit"><?= t('send') ?></button>
+    <button type="submit"><?= maybe_reverse(t('send')) ?></button>
 </form>
-<p><a href="user_search.php"><?= t('search_users') ?></a></p>
+<p><a href="user_search.php"><?= maybe_reverse(t('search_users')) ?></a></p>

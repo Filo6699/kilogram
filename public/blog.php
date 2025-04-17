@@ -31,14 +31,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     );
     $stmt->execute([$user_id, $title, $content]);
 
-    echo t('blog_posted');
+    echo maybe_reverse(t('blog_posted'));
 }
 ?>
 <form method="POST">
-    <?= t('title') ?>: <input name="title"><br>
-    <?= t('content') ?>: <textarea name="content"></textarea><br>
+    <?= maybe_reverse(t('title')) ?>: <input name="title"><br>
+    <?= maybe_reverse(t('content')) ?>: <textarea name="content"></textarea><br>
     <div>
         <?php include 'captcha_image.php'; ?>
     </div>
-    <button type="submit"><?= t('post') ?></button>
+    <button type="submit"><?= maybe_reverse(t('post')) ?></button>
 </form>
