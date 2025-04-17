@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-$langs = ['ru', 'kk', 'en'];
+$langs = ['ru', 'kk', 'en', 'ja', 'vi'];
 if (!isset($_SESSION['lang'])) {
     $_SESSION['lang'] = 'ru';
 }
