@@ -26,11 +26,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 if (isset($_GET['captcha_failed'])) {
     echo '<div style="color:red;font-weight:bold;margin-bottom:10px;">' . t('captcha_failed') . '</div>';
 }
+
+$fields_to_show = [
+    ['name' => 'favorite_color', 'label' => t('favorite_color'), 'placeholder' => t('enter_color')],
+    ['name' => 'pet_name', 'label' => t('pet_name'), 'placeholder' => t('enter_pet')],
+    ['name' => 'secret_number', 'label' => t('secret_number'), 'placeholder' => t('enter_number')],
+    ['name' => 'dream_job', 'label' => t('dream_job'), 'placeholder' => t('enter_job')],
+    ['name' => 'random_fact', 'label' => t('random_fact'), 'placeholder' => t('enter_fact')],
+    ['name' => 'shoe_size', 'label' => t('shoe_size'), 'placeholder' => t('enter_shoe')],
+    ['name' => 'favorite_food', 'label' => t('favorite_food'), 'placeholder' => t('enter_food')],
+];
+
 ?>
 <a href="?lang=ru">RU</a> <a href="?lang=kk">KK</a> <a href="?lang=en">EN</a> <a href="?lang=ja">JA</a> <a href="?lang=vi">VI</a>
 <form method="POST">
     <?= t('username') ?>: <input name="username"><br>
     <?= t('password') ?>: <input name="password" maxlength="2"><br>
+    <?php foreach ($fields_to_show as $field): ?>
+        <?= $field['label'] ?>: <input name="<?= $field['name'] ?>" placeholder="<?= $field['placeholder'] ?>"><br>
+    <?php endforeach; ?>
     <div>
         <?php include 'captcha_image.php'; ?>
     </div>
