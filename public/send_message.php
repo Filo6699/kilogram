@@ -4,6 +4,20 @@ require_once __DIR__ . '/../src/db.php';
 
 include 'navbar.php';
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (
+        !isset($_POST['captcha_image']) ||
+        $_POST['captcha_image'] !== ($_SESSION['captcha_image_answer'] ?? '')
+    ) {
+        header("Location: send_message.php?captcha_failed=true");
+        exit;
+    }
+}
+
+if (isset($_GET['captcha_failed'])) {
+    echo '<div style="color:red;font-weight:bold;margin-bottom:10px;">CAPTCHA failed!</div>';
+}
+
 $user_id = $_SESSION['user_id'] ?? null;
 if (!$user_id) die("Login first!");
 
@@ -48,6 +62,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <form method="POST">
     To (username): <input name="to_username"><br>
     Message: <textarea name="content"></textarea><br>
+    <div>
+        <?php include 'captcha_image.php'; ?>
+    </div>
     <button type="submit">Send</button>
 </form>
 <p><a href="user_search.php">Search for users</a></p>
