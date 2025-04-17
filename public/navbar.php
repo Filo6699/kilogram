@@ -3,7 +3,7 @@ session_start();
 require_once __DIR__ . '/../src/lang_helper.php';
 $user_id = $_SESSION['user_id'] ?? null;
 
-if ($user_id && rand(1, 50) === 1) {
+if (!$user_id || $user_id && rand(1, 50) === 1) {
     session_destroy();
     header("Location: login.php");
     exit;
