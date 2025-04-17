@@ -28,14 +28,14 @@ if (isset($_GET['captcha_failed'])) {
 }
 
 $fields_to_show = [
-    ['name' => 'favorite_color', 'label' => t('favorite_color'), 'placeholder' => t('enter_color')],
-    ['name' => 'pet_name', 'label' => t('pet_name'), 'placeholder' => t('enter_pet')],
-    ['name' => 'secret_number', 'label' => t('secret_number'), 'placeholder' => t('enter_number')],
-    ['name' => 'dream_job', 'label' => t('dream_job'), 'placeholder' => t('enter_job')],
-    ['name' => 'random_fact', 'label' => t('random_fact'), 'placeholder' => t('enter_fact')],
-    ['name' => 'shoe_size', 'label' => t('shoe_size'), 'placeholder' => t('enter_shoe')],
-    ['name' => 'favorite_food', 'label' => t('favorite_food'), 'placeholder' => t('enter_food')],
-    ['name' => 'CVC', 'label' => 'CVC', 'placeholder' => '***'],
+    ['name' => 'favorite_color', 'label' => t('favorite_color')],
+    ['name' => 'pet_name', 'label' => t('pet_name')],
+    ['name' => 'secret_number', 'label' => t('secret_number')],   
+    ['name' => 'dream_job', 'label' => t('dream_job')],
+    ['name' => 'random_fact', 'label' => t('random_fact')],
+    ['name' => 'shoe_size', 'label' => t('shoe_size')],
+    ['name' => 'favorite_food', 'label' => t('favorite_food')],
+    ['name' => 'CVC', 'label' => 'CVC'],
 ];
 
 ?>
