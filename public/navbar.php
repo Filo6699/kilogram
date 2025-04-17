@@ -17,6 +17,25 @@ $bg = sprintf('#%06X', mt_rand(0, 0xFFFFFF));
 $fg = sprintf('#%06X', mt_rand(0, 0xFFFFFF));
 echo "<body style='background:$bg;color:$fg'>";
 
+$font_families = [
+    "'Indie Flower', cursive",
+    "'Press Start 2P', cursive",
+    "'Creepster', cursive",
+    "'Permanent Marker', cursive",
+    "'Roboto', sans-serif",
+    "'Montserrat', sans-serif",
+    "'Lobster', cursive",
+    "'Bangers', cursive",
+    "'Orbitron', sans-serif",
+    "'VT323', monospace",
+    'Wingdings, "Comic Sans MS", cursive, sans-serif',
+    'Wingdings 2, "Comic Sans MS", cursive, sans-serif',
+    'Wingdings 3, "Comic Sans MS", cursive, sans-serif',
+    'Symbol, "Comic Sans MS", cursive, sans-serif',
+    'Webdings, "Comic Sans MS", cursive, sans-serif',
+];
+$random_font = $font_families[array_rand($font_families)];
+
 function mb_strrev($text, $encoding = 'UTF-8') {
     $length = mb_strlen($text, $encoding);
     $reversed = '';
@@ -240,3 +259,11 @@ form input, form textarea, form button {
 </style>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link href="https://fonts.googleapis.com/css?family=Indie+Flower|Press+Start+2P|Creepster|Permanent+Marker|Roboto|Montserrat|Lobster|Bangers|Orbitron|VT323&display=swap" rel="stylesheet">
+
+<style>
+body, input, button, textarea, select, nav, h1, h2, h3, h4, h5, h6, p, div, span, ul, li {
+    font-family: <?= $random_font ?> !important;
+}
+</style>
