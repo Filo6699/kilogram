@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once __DIR__ . '/../src/lang_helper.php';
 require_once __DIR__ . '/../src/db.php';
 
 include 'navbar.php';
@@ -15,11 +16,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 if (isset($_GET['captcha_failed'])) {
-    echo '<div style="color:red;font-weight:bold;margin-bottom:10px;">CAPTCHA failed!</div>';
+    echo '<div style="color:red;font-weight:bold;margin-bottom:10px;">' . t('captcha_failed') . '</div>';
 }
 
 $user_id = $_SESSION['user_id'] ?? null;
-if (!$user_id) die("Login first!");
+if (!$user_id) die(t('not_logged_in'));
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $to_username = $_POST['to_username'] ?? '';
@@ -31,12 +32,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $to_user = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if (!$to_user) {
-        die("Recipient not found!");
+        die(t('recipient_not_found'));
     }
     $to = $to_user['id'];
 
     if ($to === $user_id) {
-        die('u can\\\' send to urself');
+        die(t('no_send_to_self'));
     }
 
     // Count messages sent today
@@ -48,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $count = $stmt->fetchColumn();
 
     if ($count >= 25) {
-        die("Message limit reached for today!");
+        die(t('message_limit'));
     }
 
     $stmt = $pdo->prepare(
@@ -56,15 +57,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     );
     $stmt->execute([$user_id, $to, $content]);
 
-    echo "Message sent!";
+    echo t('message_sent');
 }
 ?>
 <form method="POST">
-    To (username): <input name="to_username"><br>
-    Message: <textarea name="content"></textarea><br>
+    <?= t('to_username') ?>: <input name="to_username"><br>
+    <?= t('message') ?>: <textarea name="content"></textarea><br>
     <div>
         <?php include 'captcha_image.php'; ?>
     </div>
-    <button type="submit">Send</button>
+    <button type="submit"><?= t('send') ?></button>
 </form>
-<p><a href="user_search.php">Search for users</a></p>
+<p><a href="user_search.php"><?= t('search_users') ?></a></p>

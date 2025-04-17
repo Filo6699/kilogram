@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once __DIR__ . '/../src/lang_helper.php';
 
 $dir = __DIR__ . '/captcha_images/';
 $files = array_values(array_filter(scandir($dir), function($f) use ($dir) {
@@ -7,7 +8,7 @@ $files = array_values(array_filter(scandir($dir), function($f) use ($dir) {
 }));
 
 if (count($files) < 9) {
-    echo "Not enough images in captcha_images/!";
+    echo t('not_enough_images');
     exit;
 }
 
@@ -22,7 +23,7 @@ $display_name = mb_convert_case(str_replace('_', ' ', $imagename), MB_CASE_TITLE
 
 $_SESSION['captcha_image_answer'] = $correct_key;
 
-echo "<div style='margin-bottom:8px;font-weight:bold;'>Choose an image with <u>$display_name</u>:</div>";
+echo "<div style='margin-bottom:8px;font-weight:bold;'>" . t('captcha_choose') . " <u>$display_name</u>:</div>";
 
 echo "<div style='display:grid;grid-template-columns:repeat(3,60px);gap:8px;'>";
 foreach ($chosen as $img) {
@@ -33,7 +34,6 @@ foreach ($chosen as $img) {
 }
 echo "</div>";
 ?>
-
 <style>
 input[type="radio"][name="captcha_image"] + img {
     border: 2px solid #000000 !important;

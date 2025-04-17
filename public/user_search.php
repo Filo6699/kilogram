@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../src/lang_helper.php';
 require_once __DIR__ . '/../src/db.php';
 
 include 'navbar.php';
@@ -13,8 +14,8 @@ if ($search !== '') {
 }
 ?>
 <form method="GET">
-    Search users: <input name="search" value="<?= htmlspecialchars($search) ?>">
-    <button type="submit">Search</button>
+    <?= t('search_users') ?>: <input name="search" value="<?= htmlspecialchars($search) ?>">
+    <button type="submit"><?= t('search') ?></button>
 </form>
 <?php if ($users): ?>
     <ul>

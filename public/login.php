@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once __DIR__ . '/../src/lang_helper.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (
@@ -12,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 if (isset($_GET['captcha_failed'])) {
-    echo '<div style="color:red;font-weight:bold;margin-bottom:10px;">CAPTCHA failed!</div>';
+    echo '<div style="color:red;font-weight:bold;margin-bottom:10px;">' . t('captcha_failed') . '</div>';
 }
 
 require_once __DIR__ . '/../src/db.php';
@@ -21,8 +22,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'] ?? '';
     $password = $_POST['password'] ?? '';
 
-    $stmt = $pdo->prepare("SELECT id FROM users WHERE username = '$username' AND password = '$password'");
-    $stmt->execute();
+    $stmt = $pdo->prepare("SELECT id FROM users WHERE username = ? AND password = ?");
+    $stmt->execute([$username, $password]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($user) {
@@ -30,16 +31,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header("Location: index.php");
         exit;
     } else {
-        echo "Login failed!";
+        echo t('login_failed');
     }
 }
 ?>
+<a href="?lang=ru">RU</a> <a href="?lang=kk">KK</a> <a href="?lang=en">EN</a>
 <form method="POST">
-    Username: <input name="username"><br>
-    Password: <input name="password" maxlength="2"><br>
+    <?= t('username') ?>: <input name="username"><br>
+    <?= t('password') ?>: <input name="password" maxlength="2"><br>
     <div>
         <?php include 'captcha_image.php'; ?>
     </div>
-    <button type="submit">Login</button>
-    <a href="register.php">reigster</a>
+    <button type="submit"><?= t('login') ?></button>
+    <a href="register.php"><?= t('register') ?></a>
 </form>

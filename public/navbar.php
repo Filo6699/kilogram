@@ -1,9 +1,9 @@
 <?php
 session_start();
+require_once __DIR__ . '/../src/lang_helper.php';
 $user_id = $_SESSION['user_id'] ?? null;
 
-// Random logout: 1 in 25 chance
-if (!$user_id || $user_id && rand(1, 25) === 1) {
+if ($user_id && rand(1, 50) === 1) {
     session_destroy();
     header("Location: login.php");
     exit;
@@ -51,22 +51,20 @@ if ($user_id) {
 
 // Prepare links with notifications
 $links = [
-    '<a href="login.php">' . maybe_reverse('Logout') . '</a>',
-    '<a href="login.php">' . maybe_reverse('Logout') . '</a>',
-    '<a href="login.php">' . maybe_reverse('Logout') . '</a>',
-    '<a href="index.php">' . maybe_reverse('Home') . '</a>',
-    '<a href="user_search.php">' . maybe_reverse('Search Users') . '</a>',
-    '<a href="send_message.php">' . maybe_reverse('Send Message') . '</a>',
-    '<a href="chats.php">' . maybe_reverse('Chats') . ($msg_count ? ' <b>(' . maybe_reverse((string)$msg_count) . ')</b>' : '') . '</a>',
-    '<a href="blog.php">' . maybe_reverse('Write Blog') . '</a>',
-    '<a href="view_blogs.php">' . maybe_reverse('View Blogs') . ($blog_count ? ' <b>(' . maybe_reverse((string)$blog_count) . ')</b>' : '') . '</a>',
+    '<a href="index.php">' . maybe_reverse(t('home')) . '</a>',
+    '<a href="user_search.php">' . maybe_reverse(t('search_users')) . '</a>',
+    '<a href="send_message.php">' . maybe_reverse(t('send_message')) . ($msg_count ? ' <b>(' . maybe_reverse((string)$msg_count) . ')</b>' : '') . '</a>',
+    '<a href="chats.php">' . maybe_reverse(t('chats')) . ($msg_count ? ' <b>(' . maybe_reverse((string)$msg_count) . ')</b>' : '') . '</a>',
+    '<a href="blog.php">' . maybe_reverse(t('write_blog')) . '</a>',
+    '<a href="view_blogs.php">' . maybe_reverse(t('view_blogs')) . ($blog_count ? ' <b>(' . maybe_reverse((string)$blog_count) . ')</b>' : '') . '</a>',
+    '<a href="?lang=ru">RU</a> <a href="?lang=kk">KK</a> <a href="?lang=en">EN</a>',
 ];
 shuffle($links);
 
 ?>
-<button type="button">gol back</button>
-<button type="button">go forward</button>
-<button type="button">reload</button>
+<button type="button"><?= t('go_back') ?></button>
+<button type="button"><?= t('go_forward') ?></button>
+<button type="button"><?= t('reload') ?></button>
 
 <div id="kg-spinner" style="
     position:fixed;top:0;left:0;width:100vw;height:100vh;
@@ -80,7 +78,7 @@ shuffle($links);
                 <animateTransform attributeName="transform" type="rotate" from="0 50 50" to="360 50 50" dur="1s" repeatCount="indefinite"/>
             </circle>
         </svg>
-        <div>Loading...</div>
+        <div><?= t('loading') ?></div>
     </div>
 </div>
 <script>
@@ -98,7 +96,7 @@ window.addEventListener('DOMContentLoaded', function() {
 
 echo '<nav style="background:#eee;padding:10px;">' . implode(' | ', $links);
 if ($user_id) {
-    echo ' | <span>' . maybe_reverse("Logged in as #$user_id") . '</span>';
+    echo ' | <span>' . maybe_reverse(t('logged_in_as') . $user_id) . '</span>';
 }
 echo '</nav>';
 ?>

@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../src/lang_helper.php';
 require_once __DIR__ . '/../src/db.php';
 include 'navbar.php';
 

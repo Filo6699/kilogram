@@ -1,11 +1,12 @@
 <?php
 session_start();
+require_once __DIR__ . '/../src/lang_helper.php';
 require_once __DIR__ . '/../src/db.php';
 
 include 'navbar.php';
 
 $user_id = $_SESSION['user_id'] ?? null;
-if (!$user_id) die("Login first!");
+if (!$user_id) die(t('not_logged_in'));
 
 // Get all users you've chatted with
 $stmt = $pdo->prepare("
@@ -56,7 +57,7 @@ if ($chat_with) {
     $partner = $stmt->fetchColumn();
 }
 ?>
-<h2>Your Chats</h2>
+<h2><?= t('your_chats') ?></h2>
 <ul>
     <?php foreach ($users as $user): ?>
         <li>
@@ -68,7 +69,7 @@ if ($chat_with) {
 </ul>
 
 <?php if ($chat_with): ?>
-    <h3>Chat with <?= maybe_reverse(htmlspecialchars($partner)) ?></h3>
+    <h3><?= t('chat_with') ?> <?= maybe_reverse(htmlspecialchars($partner)) ?></h3>
     <div style="border:1px solid #ccc; padding:10px; max-width:400px;">
         <?php foreach ($messages as $msg): ?>
             <div>
