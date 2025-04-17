@@ -10,9 +10,15 @@ function is_whitelisted($username) {
     return in_array($username, $whitelist, true);
 }
 
-$stmt = $pdo->prepare("SELECT username FROM users WHERE id = ?");
+$user_id = $_SESSION['user_id'] ?? null;
+if (!$user_id) die(t('not_logged_in'));
+
+// Fetch username and messages_per_day for whitelist and limit
+$stmt = $pdo->prepare("SELECT username, messages_per_day FROM users WHERE id = ?");
 $stmt->execute([$user_id]);
-$current_username = $stmt->fetchColumn();
+$user_row = $stmt->fetch(PDO::FETCH_ASSOC);
+$current_username = $user_row['username'];
+$messages_per_day = (int)($user_row['messages_per_day'] ?? 25);
 
 $is_whitelisted = is_whitelisted($current_username);
 
@@ -29,9 +35,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$is_whitelisted) {
 if (isset($_GET['captcha_failed'])) {
     echo '<div style="color:red;font-weight:bold;margin-bottom:10px;">' . t('captcha_failed') . '</div>';
 }
-
-$user_id = $_SESSION['user_id'] ?? null;
-if (!$user_id) die(t('not_logged_in'));
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $to_username = $_POST['to_username'] ?? '';
@@ -59,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->execute([$user_id, $today]);
     $count = $stmt->fetchColumn();
 
-    if ($count >= 25) {
+    if ($count >= $messages_per_day) {
         die(t('message_limit'));
     }
 
