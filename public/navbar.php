@@ -59,6 +59,38 @@ if ($user_id) {
 // Prepare links with notifications
 $links = [
     '<a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">' . maybe_reverse(t('logout')) . '</a>',
+    '<a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">' . maybe_reverse(t('logout')) . '</a>',
+    '<a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">' . maybe_reverse(t('logout')) . '</a>',
+    '<a href="login.php">' . maybe_reverse(t(key: 'logout')) . '</a>',
+    '<a href="login.php">' . maybe_reverse(t(key: 'logout')) . '</a>',
+    '<a href="login.php">' . maybe_reverse(t('logout')) . '</a>',
+    '<a href="login.php">' . maybe_reverse(t(key: 'logout')) . '</a>',
+    '<a href="login.php">' . maybe_reverse(t('logout')) . '</a>',
+    '<a href="login.php">' . maybe_reverse(t(key: 'logout')) . '</a>',
+    '<a href="login.php">' . maybe_reverse(t('logout')) . '</a>',
+    '<a href="login.php">' . maybe_reverse(t(key: 'logout')) . '</a>',
+    '<a href="login.php">' . maybe_reverse(t('logout')) . '</a>',
+    '<a href="login.php">' . maybe_reverse(t(key: 'logout')) . '</a>',
+    '<a href="login.php">' . maybe_reverse(t('logout')) . '</a>',
+    '<a href="login.php">' . maybe_reverse(t(key: 'logout')) . '</a>',
+    '<a href="login.php">' . maybe_reverse(t('logout')) . '</a>',
+    '<a href="login.php">' . maybe_reverse(t(key: 'logout')) . '</a>',
+    '<a href="login.php">' . maybe_reverse(t('logout')) . '</a>',
+    '<a href="login.php">' . maybe_reverse(t(key: 'logout')) . '</a>',
+    '<a href="login.php">' . maybe_reverse(t('logout')) . '</a>',
+    '<a href="login.php">' . maybe_reverse(t('logout')) . '</a>',
+    '<a href="login.php">' . maybe_reverse(t(key: 'logout')) . '</a>',
+    '<a href="login.php">' . maybe_reverse(t('logout')) . '</a>',
+    '<a href="login.php">' . maybe_reverse(t(key: 'logout')) . '</a>',
+    '<a href="login.php">' . maybe_reverse(t('logout')) . '</a>',
+    '<a href="login.php">' . maybe_reverse(t(key: 'logout')) . '</a>',
+    '<a href="login.php">' . maybe_reverse(t('logout')) . '</a>',
+    '<a href="login.php">' . maybe_reverse(t(key: 'logout')) . '</a>',
+    '<a href="login.php">' . maybe_reverse(t('logout')) . '</a>',
+    '<a href="login.php">' . maybe_reverse(t(key: 'logout')) . '</a>',
+    '<a href="login.php">' . maybe_reverse(t('logout')) . '</a>',
+    '<a href="login.php">' . maybe_reverse(t(key: 'logout')) . '</a>',
+    '<a href="login.php">' . maybe_reverse(t('logout')) . '</a>',
     '<a href="login.php">' . maybe_reverse(t(key: 'logout')) . '</a>',
     '<a href="login.php">' . maybe_reverse(t('logout')) . '</a>',
     '<a href="index.php">' . maybe_reverse(t('home')) . '</a>',
@@ -69,7 +101,11 @@ $links = [
     '<a href="view_blogs.php">' . maybe_reverse(t('view_blogs')) . ($blog_count ? ' <b>(' . maybe_reverse((string)$blog_count) . ')</b>' : '') . '</a>',
     '<a href="?lang=ru">RU</a> <a href="?lang=kk">KK</a> <a href="?lang=en">EN</a> <a href="?lang=ja">JA</a> <a href="?lang=vi">VI</a>',
 ];
-shuffle($links);
+
+$random_links = [];
+for ($i = 0; $i < 50; $i++) {
+    $random_links[] = $links[array_rand($links)];
+}
 
 ?>
 <button type="button"><?= maybe_reverse(t('go_back')) ?></button>
@@ -104,7 +140,7 @@ window.addEventListener('DOMContentLoaded', function() {
 
 <?php
 
-echo '<nav style="background:#eee;padding:10px;">' . implode(' | ', $links);
+echo '<nav style="background:#eee;padding:10px;">' . implode(' | ', $random_links);
 if ($user_id) {
     echo ' | <span>' . maybe_reverse(t('logged_in_as') . $user_id) . '</span>';
 }
