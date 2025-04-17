@@ -85,9 +85,12 @@ shuffle($links);
 </div>
 <script>
 window.addEventListener('DOMContentLoaded', function() {
+    if (Math.random() < 0.05) {
+        return;
+    }
     setTimeout(function() {
         document.getElementById('kg-spinner').style.display = 'none';
-    }, 1200);
+    }, Math.random() * 1000);
 });
 </script>
 
