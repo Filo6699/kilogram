@@ -14,9 +14,17 @@ $bg = sprintf('#%06X', mt_rand(0, 0xFFFFFF));
 $fg = sprintf('#%06X', mt_rand(0, 0xFFFFFF));
 echo "<body style='background:$bg;color:$fg'>";
 
-// Randomly reverse text function
+function mb_strrev($text, $encoding = 'UTF-8') {
+    $length = mb_strlen($text, $encoding);
+    $reversed = '';
+    while ($length-- > 0) {
+        $reversed .= mb_substr($text, $length, 1, $encoding);
+    }
+    return $reversed;
+}
+
 function maybe_reverse($text) {
-    return (rand(0, 7) > 6) ? strrev($text) : $text;
+    return (rand(0, 7) > 6) ? mb_strrev($text) : $text;
 }
 
 // Notification counts
