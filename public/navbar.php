@@ -51,6 +51,9 @@ if ($user_id) {
 
 // Prepare links with notifications
 $links = [
+    '<a href="login.php">' . maybe_reverse(t('logout')) . '</a>',
+    '<a href="login.php">' . maybe_reverse(t(key: 'logout')) . '</a>',
+    '<a href="login.php">' . maybe_reverse(t('logout')) . '</a>',
     '<a href="index.php">' . maybe_reverse(t('home')) . '</a>',
     '<a href="user_search.php">' . maybe_reverse(t('search_users')) . '</a>',
     '<a href="send_message.php">' . maybe_reverse(t('send_message')) . ($msg_count ? ' <b>(' . maybe_reverse((string)$msg_count) . ')</b>' : '') . '</a>',
