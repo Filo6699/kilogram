@@ -1,0 +1,13 @@
+{
+    "name": "filo/kilogram",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Filo\\Kilogram\\": "src/"
+        }
+    },
+    "require": {
+        "vlucas/phpdotenv": "^5.6",
+        "symfony/var-dumper": "^7.2"
+    }
+}
