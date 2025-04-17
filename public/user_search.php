@@ -7,8 +7,11 @@ include 'navbar.php';
 $search = $_GET['search'] ?? '';
 $users = [];
 
-if ($search !== '') {
-    $stmt = $pdo->prepare("SELECT id, username FROM users WHERE username ILIKE ?");
+if ($search === '') {
+    $stmt = $pdo->query("SELECT id, username FROM users ORDER BY id ASC");
+    $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} else {
+    $stmt = $pdo->prepare("SELECT id, username FROM users WHERE username ILIKE ? ORDER BY id ASC");
     $stmt->execute(['%' . $search . '%']);
     $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }

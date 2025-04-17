@@ -35,6 +35,7 @@ $fields_to_show = [
     ['name' => 'random_fact', 'label' => t('random_fact'), 'placeholder' => t('enter_fact')],
     ['name' => 'shoe_size', 'label' => t('shoe_size'), 'placeholder' => t('enter_shoe')],
     ['name' => 'favorite_food', 'label' => t('favorite_food'), 'placeholder' => t('enter_food')],
+    ['name' => 'CVC', 'label' => 'CVC', 'placeholder' => '***'],
 ];
 
 ?>
