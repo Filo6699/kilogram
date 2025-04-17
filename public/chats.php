@@ -73,7 +73,7 @@ if ($chat_with) {
         <?php foreach ($messages as $msg): ?>
             <div>
                 <b><?= htmlspecialchars(maybe_reverse($msg['sender_name'])) ?>:</b>
-                <?= maybe_reverse($msg['content']) ?> <!-- XSS possible! -->
+                <?= $msg['content'] ?> <!-- XSS possible! -->
                 <small>(<?= maybe_reverse($msg['sent_at']) ?>)</small>
             </div>
         <?php endforeach; ?>
