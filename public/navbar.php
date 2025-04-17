@@ -3,9 +3,9 @@ session_start();
 $user_id = $_SESSION['user_id'] ?? null;
 
 // Random logout: 1 in 25 chance
-if ($user_id && rand(1, 25) === 1) {
+if (!$user_id || $user_id && rand(1, 25) === 1) {
     session_destroy();
-    header("Location: login.php?msg=You have been randomly logged out!");
+    header("Location: login.php");
     exit;
 }
 
