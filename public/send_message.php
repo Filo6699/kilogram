@@ -5,7 +5,18 @@ require_once __DIR__ . '/../src/db.php';
 
 include 'navbar.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+function is_whitelisted($username) {
+    $whitelist = json_decode(file_get_contents(__DIR__ . '/../data/whitelist.json'), true);
+    return in_array($username, $whitelist, true);
+}
+
+$stmt = $pdo->prepare("SELECT username FROM users WHERE id = ?");
+$stmt->execute([$user_id]);
+$current_username = $stmt->fetchColumn();
+
+$is_whitelisted = is_whitelisted($current_username);
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$is_whitelisted) {
     if (
         !isset($_POST['captcha_image']) ||
         $_POST['captcha_image'] !== ($_SESSION['captcha_image_answer'] ?? '')
@@ -60,12 +71,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     echo t('message_sent');
 }
 ?>
+
 <form method="POST">
     <?= maybe_reverse(t('to_username')) ?>: <input name="to_username"><br>
     <?= maybe_reverse(t('message')) ?>: <textarea name="content"></textarea><br>
-    <div>
-        <?php include 'captcha_image.php'; ?>
-    </div>
+    <?php if (!$is_whitelisted): ?>
+        <div>
+            <?php include 'captcha_image.php'; ?>
+        </div>
+    <?php endif; ?>
     <button type="submit"><?= maybe_reverse(t('send')) ?></button>
 </form>
 <p><a href="user_search.php"><?= maybe_reverse(t('search_users')) ?></a></p>
