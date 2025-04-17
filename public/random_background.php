@@ -7,6 +7,11 @@ $files = array_values(array_filter(scandir($dir), function($f) use ($dir) {
 
 if (count($files) === 0) return;
 
+function is_cursed($user_id) {
+  $cursed = json_decode(file_get_contents(__DIR__ . '/../data/cursed_users.json'), true);
+  return in_array($user_id, $cursed, true);
+}
+
 $is_cursed = false;
 if (isset($_SESSION['user_id'])) {
   $is_cursed = is_cursed(user_id: $_SESSION['user_id']);
