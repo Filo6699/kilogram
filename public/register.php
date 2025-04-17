@@ -2,6 +2,7 @@
 session_start();
 require_once __DIR__ . '/../src/lang_helper.php';
 require_once __DIR__ . '/../src/db.php';
+include 'random_background.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (

@@ -1,5 +1,8 @@
 <?php
 session_start();
+
+include 'random_background.php';
+
 require_once __DIR__ . '/../src/lang_helper.php';
 $user_id = $_SESSION['user_id'] ?? null;
 
