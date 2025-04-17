@@ -40,7 +40,7 @@ $blogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 foreach ($blogs as $row) {
     $repeat = rand(1, 2);
     for ($i = 0; $i < $repeat; $i++) {
-        echo "<h2>" . maybe_glitch(maybe_reverse($row['title'])) . "</h2>";
+        echo "<h2>" . maybe_reverse($row['title']) . "</h2>";
         echo "<div>" . $row['content'] . "</div>";
         echo "<hr>";
 
@@ -54,8 +54,8 @@ foreach ($blogs as $row) {
             echo '<ul style="list-style:none;padding-left:0;">';
             foreach ($comments as $c) {
                 echo '<li style="margin-bottom:6px;">';
-                echo '<b>' . maybe_glitch(htmlspecialchars($c['username'])) . '</b>: ';
-                echo maybe_glitch(htmlspecialchars($c['content']));
+                echo '<b>' . maybe_reverse(htmlspecialchars($c['username'])) . '</b>: ';
+                echo maybe_reverse(htmlspecialchars($c['content']));
                 echo ' <small>(' . $c['created_at'] . ')</small>';
                 echo '</li>';
             }
