@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once __DIR__ . '/../src/db.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -9,13 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header("Location: register.php?captcha_failed=true");
         exit;
     }
-}
 
-if (isset($_GET['captcha_failed'])) {
-    echo '<div style="color:red;font-weight:bold;margin-bottom:10px;">CAPTCHA failed!</div>';
-}
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'] ?? '';
     $password = $_POST['password'] ?? '';
     if (strlen($password) > 2) {
@@ -24,6 +19,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt = $pdo->prepare("INSERT INTO users (username, password) VALUES (?, ?)");
     $stmt->execute([$username, $password]);
     echo "Registered! <a href='login.php'>Login</a>";
+    exit;
+}
+
+if (isset($_GET['captcha_failed'])) {
+    echo '<div style="color:red;font-weight:bold;margin-bottom:10px;">CAPTCHA failed!</div>';
 }
 ?>
 <form method="POST">
